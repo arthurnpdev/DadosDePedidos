@@ -1,0 +1,29 @@
+package Dados;
+
+public class ItemPedido {
+	private String nameProduct;
+	private double priceProduct;
+	private int quantity;
+	
+	public ItemPedido(String nameProduct, double priceProduct, int quantity) {
+		this.nameProduct = nameProduct;
+		this.priceProduct = priceProduct;
+		this.quantity = quantity;
+	}
+	
+	public String getNameProduct() {
+		return nameProduct;
+	}
+	
+	public double getPriceProduct() {
+		return priceProduct;
+	}
+	
+	public int getQuantity() {
+		return quantity;
+	}
+	
+	 public double getSubtotal() {
+	        return priceProduct * quantity;
+	    }
+}
