@@ -1,0 +1,53 @@
+package Dados;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Scanner;
+public class Main {
+
+	public static void main(String[] args) throws ParseException {
+	Scanner scanner = new Scanner(System.in);
+	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+	
+	System.out.println("Informe os dados do cliente:");
+	System.out.print("Nome: ");
+	String name = scanner.nextLine();
+	System.out.print("Email: ");
+	String email = scanner.nextLine();
+	System.out.print("Data de nascimento: ");
+	Date dateOfBirth = sdf.parse(scanner.nextLine());
+	
+	Cliente cliente = new Cliente(name, email, dateOfBirth);
+	
+	System.out.println("Informe os dados do Pedido:");
+	System.out.print("Status (PROCESSANDO, ENVIADO, ENTREGUE, CANCELADO): ");
+	String statusStr = scanner.nextLine().toUpperCase();
+	StatusPedido status = StatusPedido.valueOf(statusStr);
+	
+	System.out.print("Quantos itens para esse pedido? ");
+	int n = scanner.nextInt();
+	scanner.nextLine();
+	
+	Pedidos pedido = new Pedidos(new Date(), status, cliente);
+	
+	for (int i = 1; i <= n; i ++) {
+		System.out.println("Informe os dados do item " + i + ":");
+		System.out.print("Nome do produto: ");
+		String nameProduct = scanner.nextLine();
+		System.out.print("Preço do produto: ");
+		Double priceProduct = scanner.nextDouble();
+		System.out.print("Quantidade: ");
+		int quantity = scanner.nextInt();
+		scanner.nextLine();
+		
+		ItemPedido item = new ItemPedido(nameProduct, priceProduct, quantity);
+		pedido.addItens(item);
+	}
+	
+	pedido.exibirResumo();
+	
+	scanner.close();
+
+	}
+
+}
