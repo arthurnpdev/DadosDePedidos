@@ -1,0 +1,46 @@
+package Dados;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+public class Pedidos {
+	private Date moment;
+	private StatusPedido status;
+	private Cliente cliente;
+	private List<ItemPedido> itens;
+	
+	public Pedidos(Date moment, StatusPedido status, Cliente cliente) {
+		this.moment = moment;
+		this.status = status;
+		this.cliente = cliente;
+		this.itens = new ArrayList<>();
+	}
+	
+	public void addItens(ItemPedido item) {
+		itens.add(item);
+	}
+	
+	public double getValorTotal() {
+        double total = 0;
+        for (ItemPedido item : itens) {
+            total += item.getSubtotal();
+        }
+        return total;
+    }
+	
+	public void exibirResumo() {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		System.out.println("RESUMO DO PEDIDO:");
+		System.out.println("Momento do pedido: " + sdf.format(moment));
+		System.out.println("Status do pedido: " + status);
+		System.out.println("Cliente: " + cliente.getName() + " (" + new SimpleDateFormat("dd/MM/yyyy").format(cliente.getDateOfBirth()) + ") - " + cliente.getEmail());
+		System.out.println("Itens do pedido:");
+			for(ItemPedido item : itens) {
+				System.out.println(item.getNameProduct() + ", R$ " + item.getPriceProduct() + ", Quantidade: " + item.getQuantity() + ", Subtotal: R$ " + item.getSubtotal());				
+			}
+			System.out.printf("Valor total: R$ " + getValorTotal());
+	}
+
+}
